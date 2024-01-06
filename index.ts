@@ -17,32 +17,34 @@ async function main() {
 }
 
 app.get("/", (req, res) => {
-  // const name = req.query.name || "Guest";
-  // res.json({ message: `Hello, ${name}!` });
+  const name = req.query.name || "Guest";
+  res.json({ message: `Hello, ${name}!` });
 });
 
-app.get('/api/users/', async (req, res) => {
-
+app.get("/api/users/", async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    const getAllUsers = await prisma.user.findMany();
+    res.json(getAllUsers);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+})
 
 app.post("/api/body/", async (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   if (!name || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: "Please enter all required information!" })
   }
+
   try {
     const createdRow = await prisma.user.create({ data: { name: name, email: email, password: password, confirmPassword } });
     res.json(createdRow)
   } catch (error) {
     res.status(400).send({ message: error })
   }
+
+
 });
 
 app.listen(port, () => {

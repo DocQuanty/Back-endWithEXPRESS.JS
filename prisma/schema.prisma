@@ -16,6 +16,16 @@ model User {
   email           String @unique
   password        String
   confirmPassword String
+  sold            Int    @default(173)
+  volume          Int    @default(541)
 
   @@map("user_list")
+}
+
+model Image {
+  id_img  Int    @id @default(autoincrement())
+  id_user Int
+  name    String
+
+  @@map("image_list")
 }
