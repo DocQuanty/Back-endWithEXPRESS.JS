@@ -32,6 +32,7 @@ app.get("/api/users/", async (req, res) => {
 })
 
 app.post("/api/body/", async (req, res) => {
+
   const { name, email, password, confirmPassword } = req.body
   if (!name || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: "Please enter all required information!" })
