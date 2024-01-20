@@ -30,6 +30,15 @@ app.get("/api/users/", async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
+app.get("/api/img/", async (req, res) => {
+  try {
+    const getAllImages = await prisma.image.findMany();
+    res.json(getAllImages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 
 app.post("/api/body/", async (req, res) => {
 
